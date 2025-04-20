@@ -26,16 +26,16 @@ static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *e, gpointer user_da
 {
 	switch (e->direction) {
 	case GDK_SCROLL_UP:
-		gl_translate(0.99, 0, 0, 0, prev_x, prev_y);
+		gl_translate(0.99, 0, 0, 0, prev_x * DPI_SCALE, prev_y * DPI_SCALE);
 		break;
 	case GDK_SCROLL_DOWN:
-		gl_translate(1.0/0.99, 0, 0, 0, prev_x, prev_y);
+		gl_translate(1.0/0.99, 0, 0, 0, prev_x * DPI_SCALE, prev_y * DPI_SCALE);
 		break;
 	case GDK_SCROLL_LEFT:
-		gl_translate(1.0, -0.01, 0, 0, prev_x, prev_y);
+		gl_translate(1.0, -0.01, 0, 0, prev_x * DPI_SCALE, prev_y * DPI_SCALE);
 		break;
 	case GDK_SCROLL_RIGHT:
-		gl_translate(1.0, 0.01, 0, 0, prev_x, prev_y);
+		gl_translate(1.0, 0.01, 0, 0, prev_x * DPI_SCALE, prev_y * DPI_SCALE);
 		break;
 	/*case GDK_SCROLL_SMOOTH:
 		gl_translate(pow(0.99, e->delta_y), 0, 0, 0, prev_x, prev_y);
@@ -52,8 +52,8 @@ static gboolean on_move(GtkWidget *widget, GdkEventMotion *e, gpointer user_data
 	double dx, dy;
 	dx = e->x - prev_x;
 	dy = e->y - prev_y;
-	prev_x = e->x * DPI_SCALE;
-	prev_y = e->y * DPI_SCALE;
+	prev_x = e->x;
+	prev_y = e->y;
 
 	if (button_down && ctrl_drag) {
 		gl_translate(1.0, 0, dx * DPI_SCALE, dy * DPI_SCALE, -1.0, -1.0);
