@@ -52,8 +52,8 @@ static gboolean on_move(GtkWidget *widget, GdkEventMotion *e, gpointer user_data
 	double dx, dy;
 	dx = e->x - prev_x;
 	dy = e->y - prev_y;
-	prev_x = e->x;
-	prev_y = e->y;
+	prev_x = e->x * DPI_SCALE;
+	prev_y = e->y * DPI_SCALE;
 
 	if (button_down && ctrl_drag) {
 		gl_translate(1.0, 0, dx * DPI_SCALE, dy * DPI_SCALE, -1.0, -1.0);
