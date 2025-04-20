@@ -1,7 +1,7 @@
 #version 420
 
 #define UNROLL_LOOP 1
-#define USE_DOUBLES 1
+#define USE_DOUBLES 0
 
 #if USE_DOUBLES
 #define VEC2 dvec2

@@ -10,7 +10,7 @@
 #include "fragment.glsl.h"
 #include "vertex.glsl.h"
 
-#define USE_DOUBLES
+//#define USE_DOUBLES
 
 /* TODO: get rid of global state... */
 static GLuint program, vao;

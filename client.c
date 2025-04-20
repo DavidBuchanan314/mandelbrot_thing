@@ -12,6 +12,9 @@ static gboolean take_screenshot_next = FALSE;
 static double prev_x, prev_y, drag_x, drag_y;
 char *stats;
 
+// hardcoded for now...
+#define DPI_SCALE 2.0
+
 void update_subtitle(char *msg)
 {
 	if (stats) free(stats);
@@ -35,8 +38,7 @@ static gboolean on_scroll(GtkWidget *widget, GdkEventScroll *e, gpointer user_da
 		gl_translate(1.0, 0.01, 0, 0, prev_x, prev_y);
 		break;
 	/*case GDK_SCROLL_SMOOTH:
-		render_angle += e->delta_x * 0.01;
-		render_scale -= e->delta_y;
+		gl_translate(pow(0.99, e->delta_y), 0, 0, 0, prev_x, prev_y);
 		break;*/
 	default:
 		break;
@@ -54,7 +56,7 @@ static gboolean on_move(GtkWidget *widget, GdkEventMotion *e, gpointer user_data
 	prev_y = e->y;
 
 	if (button_down && ctrl_drag) {
-		gl_translate(1.0, 0, dx, dy, -1.0, -1.0);
+		gl_translate(1.0, 0, dx * DPI_SCALE, dy * DPI_SCALE, -1.0, -1.0);
 	}
 
 	return TRUE;
@@ -73,7 +75,7 @@ static gboolean on_press(GtkWidget *widget, GdkEventButton *e, gpointer user_dat
 		break;
 	case GDK_BUTTON_RELEASE:
 		if (!ctrl_drag) {
-			gl_reframe(drag_x, drag_y, e->x, e->y);
+			gl_reframe(drag_x * DPI_SCALE, drag_y * DPI_SCALE, e->x * DPI_SCALE, e->y * DPI_SCALE);
 		}
 		button_down = FALSE;
 		break;
